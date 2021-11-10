@@ -22,13 +22,14 @@
             <input type="text" id='pretraga' class="form-control" placeholder="Pretrazi...">
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-7">
                 <table class="table table-light">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Naziv grada</th>
                             <th>Postanski broj</th>
+                            <th>Broj stanovnika</th>
                             <th>Akcije</th>
                         </tr>
                     </thead>
@@ -36,9 +37,6 @@
 
                     </tbody>
                 </table>
-            </div>
-            <div class="col-1">
-
             </div>
             <div class="col-5">
                 <h2 id='formaNaslov'>Kreiraj grad</h2>
@@ -114,6 +112,7 @@
                         <td>${grad.id}</td>
                         <td>${grad.naziv}</td>
                         <td>${grad.postanski_broj}</td>
+                        <td>${grad.populacija||0}</td>
                         <td>
                             <button onClick="popuniFormu(${grad.id})" class='btn btn-success'>Izmeni</button>    
                             <button onClick="obrisiGrad(${grad.id})" class='btn btn-danger'>Obrisi</button>    

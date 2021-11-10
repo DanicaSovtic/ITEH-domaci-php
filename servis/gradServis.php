@@ -17,7 +17,7 @@
         exit;
     }
     if($metoda=='sve'){
-        echo json_encode($broker->izvrsiCitanje("select g.*, count(o.id) from grad g left join osoba o on (g.id=o.grad_id) group by g.id"));
+        echo json_encode($broker->izvrsiCitanje("select g.*, count(o.id) as 'populacija' from grad g left join osoba o on (g.id=o.grad_id) group by g.id"));
         exit;
     }
     if($metoda=='obrisi'){
