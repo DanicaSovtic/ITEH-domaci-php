@@ -3,13 +3,18 @@
     include '../dbbroker.php';
     include '../util.php';
     $broker=Broker::getBroker();
-    $metoda=$_GET['metoda'];
+    $metoda='';
 
-    if(!isset($metoda)){
+    if(isset($_GET['metoda'])){
+        $metoda=$_GET['metoda'];
+        
+    }
+    if(isset($_POST['metoda'])){
         $metoda=$_POST['metoda'];
-        if(!isset($metoda)){
-            exit;
-        }
+        
+    }
+    if($metoda==''){
+        exit;
     }
     if($metoda=='sve'){
         echo json_encode($broker->izvrsiCitanje("select g.*, count(o.id) from grad g left join osoba o on (g.id=o.grad_id) group by g.id"));
@@ -29,7 +34,7 @@
         echo json_encode($broker->izvrsiIzmenu("insert into grad(naziv,postanski_broj) values ('".$naziv."','".$postanski_broj."')"));
         exit;
     }
-    if($metoda=='kreiraj'){
+    if($metoda=='izmeni'){
         $id=$_POST['id'];
         if(!validanId($id)){
             echo json_encode(kreirajGresku("id nije prosledjen"));
@@ -37,7 +42,7 @@
         }
         $naziv=$_POST['naziv'];
         $postanski_broj=$_POST['postanski_broj'];
-        echo json_encode($broker->izvrsiIzmenu("update grad set naziv='".$naziv."', postaniski_broj='".$postanski_broj."' where id=".$id));
+        echo json_encode($broker->izvrsiIzmenu("update grad set naziv='".$naziv."', postanski_broj='".$postanski_broj."' where id=".$id));
      
     }
 
