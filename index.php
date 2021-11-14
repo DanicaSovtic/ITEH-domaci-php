@@ -79,7 +79,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary form-control mt-3">Sacuvaj</button>
             </form>
-            <button id='vrati' hidden class="btn btn-secondary form-control mt-3">Vrati se naziv</button>
+            <button id='vrati' hidden class="btn btn-secondary form-control mt-3">Vrati se nazad</button>
 
         </div>
     </div>
@@ -89,9 +89,8 @@
         let selId = 0;
         $(document).ready(function () {
             ucitajGradove();
-            ucitaOsobe();
+            ucitajOsobe();
             $('#forma').submit(e => {
-                console.log('submit');
                 e.preventDefault();
                 const ime = $('#ime').val();
                 const prezime = $('#prezime').val();
@@ -116,7 +115,7 @@
                         alert(res.error);
                         return
                     }
-                    ucitaOsobe();
+                    ucitajOsobe();
                 })
             })
             $('#pretraga').change(() => {
@@ -127,7 +126,7 @@
             })
         })
 
-        function ucitaOsobe() {
+        function ucitajOsobe() {
             $.getJSON('./servis/osobaServis.php', { metoda: 'sve' }).then(res => {
                 if (!res.status) {
                     alert(res.error);
@@ -138,10 +137,13 @@
             })
         }
         function popuniTabelu() {
-            let pretraga = $('#pretraga').val().toLowerCase();
+            let pretraga = $('#pretraga').val();
             $("#podaci").html('');
             const filtrirani = osobe.filter(element => {
-                return element.ime.toLowerCase().includes(pretraga) || element.prezime.toLowerCase().includes(pretraga) || element.drzavljanstvo.toLowerCase().includes(pretraga) || element.nacionalnost.toLowerCase().includes(pretraga) || element.grad.toLowerCase().includes(pretraga)
+                return element.ime.toLowerCase().includes(pretraga.toLowerCase())
+                    || element.prezime.toLowerCase().includes(pretraga.toLowerCase())
+                    || element.drzavljanstvo.toLowerCase().includes(pretraga.toLowerCase())
+                    || element.nacionalnost.toLowerCase().includes(pretraga.toLowerCase())
             })
             for (let osoba of filtrirani) {
                 $("#podaci").append(`
@@ -178,7 +180,7 @@
                     return;
                 }
                 osobe = osobe.filter(e => e.id != id);
-                selId = 0;
+                popuniFormu(0);
                 popuniTabelu();
             })
         }

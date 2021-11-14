@@ -52,7 +52,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary form-control mt-3">Sacuvaj</button>
                 </form>
-                <button id='vrati' hidden class="btn btn-secondary form-control mt-3">Vrati se naziv</button>
+                <button id='vrati' hidden class="btn btn-secondary form-control mt-3">Vrati se nazad</button>
             </div>
         </div>
     </div>
@@ -63,7 +63,6 @@
         $(document).ready(function () {
             ucitajGradove();
             $('#forma').submit(e => {
-                console.log('submit');
                 e.preventDefault();
                 const naziv = $('#naziv').val();
                 const postanskiBroj = $('#postanskiBroj').val();
@@ -112,7 +111,7 @@
                         <td>${grad.id}</td>
                         <td>${grad.naziv}</td>
                         <td>${grad.postanski_broj}</td>
-                        <td>${grad.populacija||0}</td>
+                        <td>${grad.populacija || 0}</td>
                         <td>
                             <button onClick="popuniFormu(${grad.id})" class='btn btn-success'>Izmeni</button>    
                             <button onClick="obrisiGrad(${grad.id})" class='btn btn-danger'>Obrisi</button>    
@@ -129,7 +128,7 @@
                     return;
                 }
                 gradovi = gradovi.filter(e => e.id != id);
-                selId = 0;
+                popuniFormu(0);
                 popuniTabelu();
             })
         }
